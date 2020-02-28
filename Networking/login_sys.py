@@ -152,8 +152,9 @@ def login_system():
             currentDT = datetime.datetime.now()
             otp = (str(currentDT)[-6:])
             return otp
+        otp_code = otp(otp_email)
         def vms():
-            otp1 = otp(otp_email.get())
+            
             def verification_mail_sending(otp1,v_email):
                 port = 587  
                 smtp_server = "smtp.gmail.com"
@@ -161,7 +162,7 @@ def login_system():
                 receiver_email = v_email 
                 password = "emailtest123"
                 message ="\
-                Subject: Hi there\nLooks like you have forgotten your password.\nUse this"+otp1+" otp to log in alternatively do not share this otp with anyone."
+                Subject: Hi there\nLooks like you have forgotten your password.\nUse this"+otp+" otp to log in alternatively do not share this otp with anyone."
 
                 context = ssl.create_default_context()
                 with smtplib.SMTP(smtp_server, port) as server:
@@ -183,7 +184,7 @@ def login_system():
             ent1.place(x = 760,y = 150)
             def check():
                 while True:
-                    if ent1.get() == otp:
+                    if ent1.get() == otp_check:
                         messagebox.showinfo(text = "OTP entered is correct.")
                         break
                     else:
@@ -193,9 +194,9 @@ def login_system():
             b1.place(x = 760,y = 200)
 
             otp_c.mainloop()
-        get_otp = Button(pa,text = "Get OTP",command = vms)
+        get_otp = Button(pa,text = "Get OTP",command =lambda otp_code : vms(otp_code))
         get_otp.place(x = 750, y = 200)
-        ent_otp = Button(pa,text = "Enter otp",command = otp_check)
+        ent_otp = Button(pa,text = "Enter otp",command =lambda otp_code : otp_check(otp_code))
         ent_otp.place(x = 748, y = 240)
         pa.mainloop()
         
